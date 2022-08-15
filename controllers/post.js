@@ -22,7 +22,8 @@ exports.createPost = (req, res, next) => {
         likes: 0,
         dislikes: 0,
         usersLiked: [],
-        usersDisliked: []
+        usersDisliked: [],
+        date: new Date()
     });
 
     //Enregistre le post dans la base de donnés 
@@ -121,6 +122,9 @@ exports.deletePost = (req, res, next) => {
 exports.getAllPosts = (req, res, next) => {
     Post.find().then(
         (posts) => {
+            posts = posts.sort(
+                (objA, objB) => objB.date.getTime() - objA.date.getTime(),
+            );
             res.status(200).json(posts);
         }
     ).catch(
