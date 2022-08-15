@@ -123,7 +123,7 @@ exports.getAllPosts = (req, res, next) => {
     Post.find().then(
         (posts) => {
             posts = posts.sort(
-                (objA, objB) => objB.date.getTime() - objA.date.getTime(),
+                (objA, objB) => objB.date.getTime() - objA.date.getTime()
             );
             res.status(200).json(posts);
         }
