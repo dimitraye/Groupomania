@@ -34,6 +34,9 @@ app.use((req, res, next) => {
 });
 
 
+
+
+
 //routes liées à la gestion posts
 app.use('/api/posts', postRoutes);
 //routes liées à la gestion users
