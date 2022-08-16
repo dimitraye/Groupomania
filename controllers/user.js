@@ -33,6 +33,7 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: user._id,
+                        role : user.role,
                         //Attribut un token d'authentification
                         token: jwt.sign(
                             { userId: user._id },
