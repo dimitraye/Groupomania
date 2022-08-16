@@ -122,6 +122,7 @@ exports.deletePost = (req, res, next) => {
 exports.getAllPosts = (req, res, next) => {
     Post.find().then(
         (posts) => {
+            //Tri les posts par date par ordre antéchronologique
             posts = posts.sort(
                 (objA, objB) => objB.date.getTime() - objA.date.getTime()
             );
