@@ -36,10 +36,11 @@ exports.login = (req, res, next) => {
                         role : user.role,
                         //Attribut un token d'authentification
                         token: jwt.sign(
-                            { userId: user._id },
+                            { userId: user._id, role: user.role },
                             'RANDOM_TOKEN_SECRET',
                             //Le token est valide pendant 24h
                             { expiresIn: '24h' }
+
                         )
                     });
                 })
