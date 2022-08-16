@@ -52,6 +52,7 @@ exports.getOnePost = (req, res, next) => {
 
 //Met à jour un post
 exports.modifyPost = (req, res, next) => {
+    console.log('req.auth.userRole',req.auth.userRole);
     //créer un objet Post
     //si le fichier existe déjà, attribuer tous les éléments JSON à postObject
     //Sinon 
@@ -64,7 +65,7 @@ exports.modifyPost = (req, res, next) => {
     delete postObject._userId;
     Post.findOne({ _id: req.params.id })
         .then((post) => {
-            if (post.userId != req.auth.userId) {
+            if (!((post.userId == req.auth.userId) || (req.auth.userRole == 'admin'))) {
                 res.status(401).json({ message: 'Not authorized' });
             } else {
                 Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
@@ -102,7 +103,7 @@ exports.modifyLike = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Post.findOne({ _id: req.params.id })
         .then(post => {
-            if (post.userId != req.auth.userId) {
+            if (!((post.userId == req.auth.userId) || (req.auth.userRole == 'admin'))) {
                 res.status(401).json({ message: 'Not authorized' });
             } else {
                 const filename = post.imageUrl.split('/images/')[1];
