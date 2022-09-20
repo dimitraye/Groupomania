@@ -29,7 +29,7 @@ exports.createPost = (req, res, next) => {
     //Enregistre le post dans la base de donnés 
     post.save()
         .then(() => { res.status(201).json({ message: 'Objet enregistré !' }) })
-        .catch(error => { res.status(400).json({ error }) })
+        .catch(error => { res.status(400).json({ error : "Problème lors de l'enregistrement du post" }) })
 };
 
 
@@ -44,7 +44,7 @@ exports.getOnePost = (req, res, next) => {
     ).catch(
         (error) => {
             res.status(404).json({
-                error: error
+                error: "Post introuvable"
             });
         }
     );
@@ -70,11 +70,11 @@ exports.modifyPost = (req, res, next) => {
             } else {
                 Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
                     .then(() => res.status(200).json({ message: 'Objet modifié!' }))
-                    .catch(error => res.status(401).json({ error }));
+                    .catch(error => res.status(401).json({ error : "Problème lors de la modification" }));
             }
         })
         .catch((error) => {
-            res.status(400).json({ error });
+            res.status(400).json({ error : "Post introuvable" });
         });
 };
 
@@ -91,11 +91,11 @@ exports.modifyLike = (req, res, next) => {
             newPost = likeDislike(userId, like, post);
             Post.updateOne({ _id: id }, { ...newPost })
                 .then(() => res.status(200).json({ message: 'Objet modifié!' }))
-                .catch(error => res.status(401).json({ error }));
+                .catch(error => res.status(401).json({ error : "Problème lors de la modification du post" }));
 
         })
         .catch((error) => {
-            res.status(400).json({ error });
+            res.status(400).json({ error : "Post introuvable" });
         });
 };
 
@@ -110,12 +110,12 @@ exports.deletePost = (req, res, next) => {
                 fs.unlink(`images/${filename}`, () => {
                     Post.deleteOne({ _id: req.params.id })
                         .then(() => { res.status(200).json({ message: 'Objet supprimé !' }) })
-                        .catch(error => res.status(401).json({ error }));
+                        .catch(error => res.status(401).json({ error : "Problème lors de la suppression du post" }));
                 });
             }
         })
         .catch(error => {
-            res.status(500).json({ error });
+            res.status(500).json({ error : "Post introuvable" });
         });
 };
 
@@ -132,7 +132,7 @@ exports.getAllPosts = (req, res, next) => {
     ).catch(
         (error) => {
             res.status(400).json({
-                error: error
+                error: "Impossible de récupérer les posts"
             });
         }
     );
