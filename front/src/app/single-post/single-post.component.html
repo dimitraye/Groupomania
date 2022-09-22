@@ -1,0 +1,50 @@
+<div class="card" (click)="onClickPost(post._id)" *ngIf="post" [ngClass]="{pointer: onListPage}">
+  <div class="card-header">
+    <h1 class="card-title">{{ post.title }}</h1>
+    <p>Rédigé le {{ post.date | date: "dd/MM/yy" }}</p>
+    <p class=""></p>
+
+    <div class="like-buttons" *ngIf="!likePending">
+      <div class="likes">
+        <i
+          [ngClass]="{ 'fas liked': liked, far: !liked, disabled: disliked }"
+          class="like fa-thumbs-up fa-lg"
+          (click)="onLike($event)"
+        ></i>
+        <span>{{ post.likes }}</span>
+      </div>
+      <div class="dislikes">
+        <i
+          [ngClass]="{
+            'fas disliked': disliked,
+            far: !disliked,
+            disabled: liked
+          }"
+          class="dislike fa-thumbs-down fa-lg"
+          (click)="onDislike($event)"
+        ></i>
+        <span>{{ post.dislikes }}</span>
+      </div>
+    </div>
+    <br />
+    <div class="like-pending" *ngIf="likePending">
+      <span class="white-spinner"></span>
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{ post.content }}</p>
+  </div>
+
+  <img class="card-img-bottom" [src]="post.imageUrl" alt="image post" />
+
+  <div class="card-footer" *ngIf="!onListPage || (onListPage && (userId === post.userId || (isAdmin$ | async))) ">
+    <button class="btn btn-primary me-1" (click)="onBack()" *ngIf="!onListPage">Retour</button>
+    <button class="btn btn-primary me-1"(click)="onModify()"*ngIf="userId === post.userId || (isAdmin$ | async)">
+      <i class="fas fa-edit" *ngIf="onListPage"></i>
+      <span *ngIf="!onListPage">Modifier</span>
+    </button>
+    <button class="btn btn-danger"(click)="onDelete()"*ngIf="(userId === post.userId || (isAdmin$ | async) )&& !onListPage" >
+      <span *ngIf="!onListPage">Supprimer</span>
+    </button>
+  </div>
+</div>

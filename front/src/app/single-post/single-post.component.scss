@@ -1,0 +1,62 @@
+.like-buttons {
+  display: flex;
+
+  i {
+    margin-right: 0.5em;
+    cursor: pointer;
+  }
+}
+
+.likes,
+.dislikes {
+  margin: 0 0.4em;
+}
+
+.liked {
+  color: rgba(51, 219, 0, 1);
+}
+
+.disliked {
+  color: rgba(219, 51, 0, 1);
+}
+
+.like {
+  &:hover {
+    color: rgba(51, 219, 0, 1);
+  }
+}
+
+.dislike {
+  transform: scaleX(-1) translateY(5px);
+
+  &:hover {
+    color: rgba(219, 51, 0, 1);
+  }
+}
+
+.disabled {
+  cursor: none;
+
+  &:hover {
+    color: rgba(190, 190, 190, 1);
+  }
+
+  color: rgba(190, 190, 190, 1);
+}
+
+.card-img-bottom {
+  width: 100%;
+  height: 30vh;
+  object-fit: contain;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.card {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 70%;
+
+}
