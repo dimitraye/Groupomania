@@ -1,0 +1,14 @@
+<span *ngIf="loading"></span>
+<p *ngIf="!loading && posts.length <= 0">No posts to display!</p>
+<h1 class="list-title" *ngIf="!loading && posts.length > 0">
+  Les derniers posts
+</h1>
+
+<div class="" *ngIf="!loading && posts.length > 0"></div>
+
+<ng-container *ngFor="let post of posts">
+  <app-single-post
+    [post]="post"
+    [onListPage]="true"
+  ></app-single-post>
+</ng-container>

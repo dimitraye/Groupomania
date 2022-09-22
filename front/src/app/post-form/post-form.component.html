@@ -1,0 +1,35 @@
+<div *ngIf="loading" class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<div class="card text-bg-light mb-3">
+  <div class="card-header text-center">{{cardTitle}}</div>
+  <div class="card-body">
+
+    <form [formGroup]="postForm" *ngIf="!loading">
+    <div class=" mb-3 text-center">
+      <label for="title" class="form-label">Le titre</label>
+      <input type="text" class="form-control" id="title" formControlName="title" placeholder="Mon super post">
+    </div>
+    <div class="mb-3 text-center">
+      <label for="content" class="form-label">Le contenu</label>
+      <textarea class="form-control"id="content" formControlName="content" rows="3"></textarea>
+    </div>
+
+    <div class="input-group mb-3 text-center">
+      <input type="file" accept="image/*" #imageInput (change)="onFileAdded($event)" class="form-control" >
+      <label class="input-group-text"   (click)="imageInput.click()">Ajouter image</label>
+      <div class="col-12">
+      <img [src]="imagePreview" *ngIf="imagePreview" >
+    </div>
+    </div>
+
+
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" (click)="onSubmit()" [disabled]="postForm.invalid">Publier</button>
+    </div>
+  </form>
+
+
+  </div>
+</div>
