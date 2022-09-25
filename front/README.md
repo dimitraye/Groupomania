@@ -2,9 +2,20 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.2.
 
+### Front end Prerequisites ###
+
+You will need to have Node and `npm` installed locally on your machine.
+If not installed, run `npm i`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+### Error Running server ###
+
+If this error appears while running the server with ng serve 
+`Error: node_modules/@angular/common/http/index.d.ts:9:32 - error TS2307: Cannot find module '@angular/core' or its corresponding type declarations.`
+Use this command `npm install --save @angular/material @angular/cdk`, then run the server.
 
 ## Code scaffolding
 
