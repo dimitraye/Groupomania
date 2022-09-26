@@ -1,10 +1,11 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is the back end server for Project 7 of the Web Developer path.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
