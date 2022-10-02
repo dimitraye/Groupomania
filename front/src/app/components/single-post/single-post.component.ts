@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Post } from '../models/Post.model';
-import { PostsService } from '../services/posts.service';
+import { Post } from '../../models/Post.model';
+import { PostsService } from '../../services/posts.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import {
   catchError,
   EMPTY,

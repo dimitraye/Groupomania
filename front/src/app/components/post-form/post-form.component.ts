@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostsService } from '../services/posts.service';
-import { Post } from '../models/Post.model';
-import { AuthService } from '../services/auth.service';
+import { PostsService } from '../../services/posts.service';
+import { Post } from '../../models/Post.model';
+import { AuthService } from '../../services/auth.service';
 import { catchError, EMPTY, switchMap, tap } from 'rxjs';
 
 @Component({
