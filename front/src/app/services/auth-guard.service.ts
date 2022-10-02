@@ -1,3 +1,6 @@
+//Logique métier et appels HTTP 
+//Pour rester connecter 
+
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,

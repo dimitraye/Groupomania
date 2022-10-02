@@ -1,3 +1,6 @@
+//Logique métier et appels HTTP 
+//Lié à la gestion des posts
+
 import { Injectable } from '@angular/core';
 import { catchError, mapTo, Observable, of, Subject, tap, throwError } from 'rxjs';
 import { Post } from '../models/Post.model';

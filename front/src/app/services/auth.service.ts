@@ -1,3 +1,6 @@
+//Logique métier et appels HTTP 
+//Liés à l'authentification
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
