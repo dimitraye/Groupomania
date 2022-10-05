@@ -25,6 +25,9 @@
             routerLinkActive="active"
             *ngIf="isAuth$ | async"
           >
+          <!-- routerLinkActive Vérifie si la route est active-->
+          <!--"| async" va subcribe à un observeur (isAuth), récupérer sa valeur et la sauvegarder.
+             Et unsubsccribe (On ne reçoit plus de valeur) quand l'utilisateur n'est plus connecté-->
             Tous les posts
           </a>
         </li>
@@ -35,6 +38,7 @@
             routerLinkActive="active"
             *ngIf="isAuth$ | async"
           >
+          <!-- routerLinkActive Vérifie si la route est active-->
             Nouveau post
           </a>
         </li>
@@ -48,7 +52,8 @@
               routerLinkActive="active"
               *ngIf="!(isAuth$ | async)"
             >
-              Inscription
+          <!-- routerLinkActive Vérifie si la route est active-->
+          Inscription
             </a>
           </li>
           <li class="nav-item">
@@ -58,7 +63,8 @@
               routerLinkActive="active"
               *ngIf="!(isAuth$ | async)"
             >
-              Connexion
+          <!-- routerLinkActive Vérifie si la route est active-->
+          Connexion
             </a>
           </li>
           <li class="nav-item">
