@@ -1,4 +1,4 @@
-//Logique métier et appels HTTP 
+//Logique métier et appels HTTP
 //Liés à l'authentification
 
 import { Injectable } from '@angular/core';
@@ -16,24 +16,32 @@ export class AuthService {
   private authToken = '';
   private userId = '';
   userRole = '';
+  host = 'http://localhost:3000';
+
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  //Crée un utilisateur
   createUser(email: string, password: string) {
+    //exécute requête http en mode POST
     return this.http.post<{ message: string }>(
-      'http://localhost:3000/api/auth/signup',
-      { email: email, password: password }
+      this.host + '/api/auth/signup', //URL
+      { email: email, password: password } //Corps
     );
   }
 
+  //Récupère le token
   getToken() {
     let token = this.authToken || this.getLocalToken();
-    return token? token:'' ;
+    return token ? token : '';
   }
 
+  //Récupère le token dans le local Storage
   getLocalToken() {
+    //Récupère un item (token) dans le local Storage
     return localStorage.getItem('token');
   }
+
   //décode le token
   getDecodedAccessToken(token: string): any {
     try {
@@ -43,46 +51,60 @@ export class AuthService {
     }
   }
 
-  //
+  //Récupère l'id de l'utilisateur enregistré dans le local storage
   getLocalUserId() {
-    let token:string | any = this.getLocalToken();
-    let tokenInfo = this.getDecodedAccessToken(token);
-    console.log('this.userId',this.userId);
-    console.log('tokenInfo.userId',tokenInfo.userId);
-    return tokenInfo != null ? tokenInfo.userId : '';
+    //Récupère le token stocké dans le local storage
+    let token: string | any = this.getLocalToken();
+    //Décode le token
+    let decodedToken = this.getDecodedAccessToken(token);
+    console.log('this.userId', this.userId);
+    console.log('tokenInfo.userId', decodedToken.userId);
+    //Si le token n'est pas nul, on retourne le userId du token décodé, sinon on retourne une chaine vide
+    return decodedToken != null ? decodedToken.userId : '';
   }
 
+  //Récupère le role de l'utilisateur enregistré dans le local storage
   getLocalUserRole() {
-    let token:string | any = this.getLocalToken();
-    let tokenInfo = this.getDecodedAccessToken(token);
-    console.log('this.userRole getLocalUserRole',this.userRole);
-    console.log('tokenInfo.userRole getLocalUserRole',tokenInfo.role);
-    return tokenInfo != null ? tokenInfo.role : '';
+    let token: string | any = this.getLocalToken();
+    let decodedToken = this.getDecodedAccessToken(token);
+    console.log('this.userRole getLocalUserRole', this.userRole);
+    console.log('tokenInfo.userRole getLocalUserRole', decodedToken.role);
+    //Si le token n'est pas nul, on retourne le role du token décodé, sinon on retourne une chaine vide
+    return decodedToken != null ? decodedToken.role : '';
   }
 
+  //Récupère l'id de l'utilisateur
   getUserId() {
+    //retourne soit le userId, soit le userId enregistré dans le local storage 
     return this.userId || this.getLocalUserId();
   }
 
+  //Regarde si l'utilisateur a le role 'Admin'
   isAdmin() {
     return this.userRole == 'admin';
   }
 
+  //Vérifie si l'utilisateur est connecté
   public isLoggedIn(): Observable<boolean> {
+    //Si l'élément isLoggedIn du localStorage vaut true, Auth vaut true (initialisé de base à false) 
     if (localStorage.getItem('isLoggedIn') == 'true') {
       this.isAuth$.next(true);
-    } else {
+    } 
+    //Sinon, auth vaut false
+    else {
       this.isAuth$.next(false);
     }
     console.log('isLoggedIn');
     return this.isAuth$;
   }
 
+  //Connecte un utilisateur
   loginUser(email: string, password: string) {
+    //requête http en mode POST
     return this.http
       .post<{ userId: string; token: string; role: string }>(
-        'http://localhost:3000/api/auth/login',
-        { email: email, password: password }
+        this.host + '/api/auth/login', //URL
+        { email: email, password: password } //corps
       )
       .pipe(
         tap(({ userId, token, role }) => {
@@ -97,6 +119,7 @@ export class AuthService {
       );
   }
 
+  //Déconnecte l'utilisateur
   logout() {
     this.authToken = '';
     this.userId = '';
@@ -107,11 +130,3 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 }
-
-
-
-
-
-
-
-

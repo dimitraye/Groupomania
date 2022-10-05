@@ -7,7 +7,9 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-post-list',
+  //Liaison avec le fichier post-list.component.html
   templateUrl: './post-list.component.html',
+  //Liaison avec le fichier post-list.component.scss
   styleUrls: ['./post-list.component.scss'],
 })
 export class PostListComponent implements OnInit {
@@ -17,62 +19,23 @@ export class PostListComponent implements OnInit {
   errorMsg!: string;
   userId!: string;
   isAdmin!: boolean;
+
+  //Injection de dépendances
   constructor(
     private postService: PostsService,
     private router: Router,
     private authService: AuthService
   ) {}
 
+  //
   ngOnInit() {
     this.loading = true;
     this.userId = this.authService.getUserId();
     this.isAdmin = this.authService.getLocalUserRole() == 'admin';
-
-    /* this.posts$ = this.postService.posts$.pipe(
-      tap(() => {
-        this.loading = false;
-        this.errorMsg = '';
-      }),
-      catchError(error => {
-        this.errorMsg = JSON.stringify(error);
-        this.loading = false;
-        return of([]);
-      })
-    );
-    this.postService.getPosts(); */
-
     this.postService.getAll().subscribe((data: Post[]) => {
       this.posts = data;
       console.log(this.posts);
       this.loading = false;
     });
-  }
-
-  onPostDeleted(post: Post) {
-    this.posts = this.posts.filter((item) => item._id !== post._id);
-    console.log('Post removed from list posts!');
-  }
-
-  onClickPost(id: string) {
-    this.router.navigate(['post', id]);
-  }
-
-  onModify(id: any) {
-    this.router.navigate(['/modify-post', id]);
-  }
-
-  onDelete(id: any) {
-    this.loading = true;
-    this.postService.deletePost(id).subscribe(
-      (response) => {
-        console.log(response);
-        this.loading = false;
-      },
-      (error) => {
-        this.loading = false;
-        console.log(error);
-      }
-    );
-    this.router.navigate(['/posts']);
   }
 }

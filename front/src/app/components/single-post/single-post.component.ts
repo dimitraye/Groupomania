@@ -17,14 +17,16 @@ import {
 
 @Component({
   selector: 'app-single-post',
+  //Liaison avec le fichier single-post.component.scss
   templateUrl: './single-post.component.html',
+  //Liaison avec le fichier single-post.component.scss
   styleUrls: ['./single-post.component.scss'],
 })
 export class SinglePostComponent implements OnInit {
   loading!: boolean;
   post$!: Observable<Post>;
-  @Input() post!: Post;
   userId!: string;
+  //
   likePending!: boolean;
   liked!: boolean;
   disliked!: boolean;
@@ -34,8 +36,12 @@ export class SinglePostComponent implements OnInit {
   role!: string;
   decodedToken!: {};
   id!: string;
+  @Input() post!: Post;
+  //variable qui indique si l'utilisateur se trouve sur la liste des posts
   @Input() onListPage!: boolean;
   @Output() public postDeleted: EventEmitter<any> = new EventEmitter();
+
+  //Injection de dépendances
   constructor(
     private postService: PostsService,
     private route: ActivatedRoute,
@@ -44,6 +50,7 @@ export class SinglePostComponent implements OnInit {
     private router: Router
   ) {}
 
+  //Initialisation des données
   ngOnInit() {
     this.loading = true;
     this.userId = this.authService.getUserId();
@@ -57,6 +64,7 @@ export class SinglePostComponent implements OnInit {
     console.log('id---------------------', this.id);
     if (this.id) {
       //on est sur la page single post
+      //Récupère le poste en fonction de son Id
       this.postService.getPostById(this.id).subscribe((data: Post) => {
         this.post = data;
         this.loading = false;
@@ -81,16 +89,22 @@ export class SinglePostComponent implements OnInit {
     this.isAdmin$ = this.authService.isAdmin$.pipe(shareReplay(1));
   }
 
+  //Fonction qui redirige sur la page du poste lorsque l'on clique sur celui-ci
   onClickPost(id: string) {
     console.log('on click post');
-    this.router.navigate(['post', id]);
+    //Redirige vers la page post en fonction de son Id
+    this.router.navigate(['posts', id]);
   }
 
+  //Gère les like
   onLike($event: Event) {
+    //Empêche la propagation de l'evenement clique sur la card
     $event.stopPropagation();
+    //Si dislike vaut true, on sort de  la méthode onLike
     if (this.disliked) {
       return;
     }
+    //La gestion du like est en cours de traitement
     this.likePending = true;
     this.postService
       .likePost(this.post._id, !this.liked)
@@ -100,6 +114,7 @@ export class SinglePostComponent implements OnInit {
           this.liked = liked;
         }),
         map((liked) => ({
+          //Récupère toutes les propriétés de post
           ...this.post,
           likes: liked ? this.post.likes + 1 : this.post.likes - 1,
         })),
@@ -107,11 +122,16 @@ export class SinglePostComponent implements OnInit {
       )
       .subscribe();
   }
+  
+  //Gère les dislike
   onDislike($event: Event) {
+    //Empêche la propagation de l'evenement clique sur la card
     $event.stopPropagation();
+    //Si like vaut true, on sort de  la méthode onDisLike
     if (this.liked) {
       return;
     }
+    //La gestion du like est en cours de traitement
     this.likePending = true;
 
     this.postService
@@ -130,24 +150,22 @@ export class SinglePostComponent implements OnInit {
       .subscribe();
   }
 
+  //Renvoie vers la page posts
   onBack() {
     this.router.navigate(['/posts']);
   }
 
+  //Renvoie vers la page pour modifier un post
   onModify() {
     this.router.navigate(['/modify-post', this.post._id]);
   }
 
+  //Permet de supprimer un post
   onDelete() {
     this.loading = true;
     if (confirm('Voulez vous vraiment supprimer ce post')) {
       this.postService.deletePost(this.post._id).subscribe((res) => {
-        if (this.onListPage) {
-          console.log('onListPage');
-          this.postDeleted.emit();
-        } else {
-          this.router.navigate(['/posts']);
-        }
+        this.router.navigate(['/posts']);
         console.log('Post deleted successfully!');
         this.loading = false;
       });

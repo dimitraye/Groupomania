@@ -62,10 +62,13 @@ exports.modifyPost = (req, res, next) => {
     //créer un objet Post
     //si le fichier existe déjà, attribuer tous les éléments JSON à postObject
     //Sinon 
-    const postObject = req.file ? {
+    const postObject = req.file ? 
+    {
         ...JSON.parse(req.body.post),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    } : { ...req.body };
+      } : 
+      
+      { ...req.body };
 
     //Efface le userId de post car l'objet post en possède déjà un
     delete postObject._userId;
