@@ -21,10 +21,6 @@ const path = require('path');
 //Importe le package dotenv pour la gestion du fichier de configuration .env
 require('dotenv').config();
 
-//import MongoBackup from 'mongodb-atlas-backup';
-const MongoBackup = require('mongodb-atlas-backup');
-
-
 //Connexion à la base de donnée 
 mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASSWORD+'@cluster0.5ujafkx.mongodb.net/?retryWrites=true&w=majority',
     {
@@ -33,28 +29,7 @@ mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASSWOR
     })
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'
-    ));
-
-
-
-
-// Create an instance of the database connection
-const backup = new MongoBackup({
-    user: DB_USER,
-    password: DB_PASSWORD,
-    replicaSet: 'atlas-jjry0n-shard-0',
-    nodes: [
-        'ac-s6ohax4-shard-00-00.5ujafkx.mongodb.net:27017',
-        'ac-s6ohax4-shard-00-01.5ujafkx.mongodb.net:27017',
-        'ac-s6ohax4-shard-00-02.5ujafkx.mongodb.net:27017'
-    ]
-})
-
-// Dump your cluster
-backup.dump()
-
-// Restore data to your cluster
-//backup.restore()    
+    ));    
 
 //Formate les données des requêtes au format json
 app.use(express.json());
