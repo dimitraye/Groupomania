@@ -9,7 +9,7 @@ You need to create a folder called `ìmages` inside the back folder
 You need to create a file named ".env" inside the back folder that contains the database user info. For exemple :
     Replace XXX by the database user Id and user Password :
         DB_USER=XXX
-        DB_PASSWORD=XXX
+        DB_PASSWORD=XXX 
 
 ### Back end Installation ###
 

@@ -1,5 +1,4 @@
-/* MODELS */
-/* Gère les données et la logique métier */
+/* Modélisation d'un post */
 
 //Importe le package mongoose qui facilite les intéractions avec MongoDB
 const mongoose = require('mongoose');

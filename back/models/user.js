@@ -1,5 +1,4 @@
 /* Modélisation de l'utilisateur */
-/* Gère les données et la logique métier */
 
 //Importe le package mongoose qui facilite les intéractions avec MongoDB
 const mongoose = require('mongoose');

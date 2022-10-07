@@ -1,3 +1,4 @@
+//Gère l'affichage et les intéractions faites sur la page
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Observable, shareReplay } from 'rxjs';
