@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'modify-post/:id', title : "Modifier un post", component: PostFormComponent, canActivate: [AuthGuard] },
 //renvoie vers la route posts, si on est à la racine de l'application
   { path: '', pathMatch: 'full', redirectTo: 'posts'},
-//Renvoie vers la route posts, peut importe ce que l'on tappe  
+//Renvoie vers la route posts, peut importe ce que l'on tappe  hormis celles spécifiées ci-dessus
   { path: '**', redirectTo: 'posts' }
 ];
 

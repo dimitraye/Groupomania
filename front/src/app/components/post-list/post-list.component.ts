@@ -1,3 +1,4 @@
+//Gère l'affichage et les intéractions faites sur la page
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../../services/posts.service';
 import { catchError, Observable, of, tap } from 'rxjs';

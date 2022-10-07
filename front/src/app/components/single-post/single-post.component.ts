@@ -1,3 +1,4 @@
+//Gère l'affichage et les intéractions faites sur la page
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Post } from '../../models/Post.model';
 import { PostsService } from '../../services/posts.service';

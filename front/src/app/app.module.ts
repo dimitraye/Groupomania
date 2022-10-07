@@ -1,4 +1,5 @@
-//Contient tout les composants que l'on utilise pour l'application (def à revoir)
+//Définit les liens vers les modules, composants utilisés pour l'application
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -18,7 +19,9 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 
 
+
 @NgModule({
+    // 1 - Déclaration des components 
   declarations: [
     AppComponent,
     SinglePostComponent,
@@ -28,13 +31,14 @@ import { SignupComponent } from './components/auth/signup/signup.component';
     LoginComponent,
     SignupComponent
   ],
+  // 2 - Modules Importés
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  //Services, sauf ceux qui ont le paramêtre "providedIn: 'root'"
+  // 3 - Services, sauf ceux qui ont le paramêtre "providedIn: 'root'"
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

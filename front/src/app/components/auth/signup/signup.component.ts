@@ -1,3 +1,4 @@
+//Gère l'affichage et les intéractions faites sur la page
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
